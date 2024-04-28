@@ -105,7 +105,22 @@ fn main() {
     // The type of str_lit here is &str: it’s a slice pointing to that specific point of the binary, and this is why string literals are fast and efficient, they are immutable!
 
     // String Slices as Parameters
-    
+    let my_string_slices = String::from("hello world");
+    let word = first_word(&my_string_slices[..]);
+    println!("The first word is: {}", word);
+
+    let my_string_slices_literal = "hello world";
+    let word = first_word(&my_string_slices_literal[..]);
+    println!("The first word is: {}", word);
+
+    // Because string literals are string slices already, this works without the slice syntax!
+    let word = first_word(my_string_slices_literal);
+    println!("The first word is: {}", word);
+
+    // Other Slices
+    let a = [1, 2, 3, 4, 5];
+    let slice = &a[1..3]; // &[2, 3]
+    println!("{:?}", slice);
 
 }
 
@@ -144,4 +159,12 @@ fn change(some_string: &mut String) {
 } // some_string is mutable, so the value can be changed
 // mutable reference have one big restriction: you can only have one mutable reference to a particular piece of data in a particular scope
 
-
+fn first_word(s: &str) -> &str{
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i]; // return a slice of the original string
+        }
+    }
+    &s[..]
+}

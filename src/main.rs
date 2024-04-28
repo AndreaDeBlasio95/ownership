@@ -34,8 +34,8 @@ fn main() {
 
     // Ways Variables and Data Interact: Clone ----------------------
     let my_s1 = String::from("hello");
-    let my_s2 = s1.clone(); // deep copy
-    println!("my_s1 = {}, my_s2 = {}", my_s1, my_s2);
+    //let my_s2 = s1.clone(); // deep copy
+    //println!("my_s1 = {}, my_s2 = {}", my_s1, my_s2);
 
     // Stack-Only Data: Copy ----------------------------------------
     // Types such as integers that have a known size at compile time are stored entirely on the stack, so copies of the actual values are quick to make
@@ -85,6 +85,26 @@ fn main() {
 
     // Dangling References -------------------------------------------
     // Rust ensures that references will never be dangling references, which would be a pointer to memory that may have been given to someone else, by ensuring that all borrows are valid
+    
+    // Slice Type ---------------------------------------------------
+    // A slice is a reference to a part of a String
+    // Slices do not have ownership
+    // include the starting index and exclude the ending index
+    // String Slices
+    let s = String::from("hello world");
+    let hello = &s[0..5]; // &s[..5]
+    let world = &s[6..11]; // &s[6..]
+    let whole = &s[..]; // &s[..]
+    println!("{} {} {}", hello, world, whole);
+
+    // Recall from the borrowing rules that if we have an immutable refer- ence to something, we cannot also take a mutable reference.
+
+    // String Literals are Slices
+    let str_lit = "Hello, world!";
+    // str_lit is of type &str
+    // The type of str_lit here is &str: it’s a slice pointing to that specific point of the binary, and this is why string literals are fast and efficient, they are immutable!
+
+    // String Slices as Parameters
     
 
 }
